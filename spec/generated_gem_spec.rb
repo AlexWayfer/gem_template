@@ -46,12 +46,12 @@ RSpec.describe 'Generated gem from template' do
 	end
 
 	describe 'files' do
-		let(:file_path) { self.class.superclass.description }
+		let(:file_path) { self.class.description }
 
-		describe '.toys.rb' do
-			describe 'content' do
-				subject { File.read file_path }
+		describe 'content' do
+			subject { File.read file_path }
 
+			describe '.toys.rb' do
 				let(:expected_lines) do
 					[
 						"require_relative 'lib/foo/bar_baz'"
@@ -60,12 +60,8 @@ RSpec.describe 'Generated gem from template' do
 
 				it { is_expected.to include_lines expected_lines }
 			end
-		end
 
-		describe 'README.md' do
-			describe 'content' do
-				subject { File.read file_path }
-
+			describe 'README.md' do
 				let(:expected_lines) do
 					[
 						'# Foo Bar Baz'
@@ -74,12 +70,8 @@ RSpec.describe 'Generated gem from template' do
 
 				it { is_expected.to include_lines expected_lines }
 			end
-		end
 
-		describe 'LICENSE.txt' do
-			describe 'content' do
-				subject { File.read file_path }
-
+			describe 'LICENSE.txt' do
 				let(:expected_lines) do
 					[
 						"Copyright (c) #{Date.today.year} #{author_name}"
@@ -88,12 +80,8 @@ RSpec.describe 'Generated gem from template' do
 
 				it { is_expected.to include_lines expected_lines }
 			end
-		end
 
-		describe 'foo-bar_baz.gemspec' do
-			describe 'content' do
-				subject { File.read file_path }
-
+			describe 'foo-bar_baz.gemspec' do
 				let(:expected_lines) do
 					[
 						"spec.name        = 'foo-bar_baz'",
@@ -106,12 +94,8 @@ RSpec.describe 'Generated gem from template' do
 
 				it { is_expected.to include_lines expected_lines }
 			end
-		end
 
-		describe 'lib/foo/bar_baz.rb' do
-			describe 'content' do
-				subject { File.read file_path }
-
+			describe 'lib/foo/bar_baz.rb' do
 				let(:expected_lines) do
 					[
 						"require_relative 'bar_baz/version'"
@@ -120,12 +104,8 @@ RSpec.describe 'Generated gem from template' do
 
 				it { is_expected.to include_lines expected_lines }
 			end
-		end
 
-		describe 'spec/foo/bar_baz/version_spec.rb' do
-			describe 'content' do
-				subject { File.read file_path }
-
+			describe 'spec/foo/bar_baz/version_spec.rb' do
 				let(:expected_lines) do
 					[
 						"RSpec.describe 'Foo::BarBaz::VERSION' do"
