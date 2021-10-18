@@ -12,6 +12,11 @@ RSpec.describe 'Generated gem from template' do
 	let(:author_email) { FFaker::Internet.email }
 	let(:namespace) { FFaker::Internet.user_name }
 
+	let(:author_name_string) do
+		quote = author_name.include?("'") ? '"' : "'"
+		"#{quote}#{author_name}#{quote}"
+	end
+
 	before do
 		system "git config user.name \"#{author_name}\""
 		system "git config user.email \"#{author_email}\""
@@ -86,7 +91,7 @@ RSpec.describe 'Generated gem from template' do
 					[
 						"spec.name        = 'foo-bar_baz'",
 						'spec.version     = Foo::BarBaz::VERSION',
-						"spec.authors     = ['#{author_name}']",
+						"spec.authors     = [#{author_name_string}]",
 						"spec.email       = ['#{author_email}']",
 						"github_uri = \"https://github.com/#{namespace}/\#{spec.name}\""
 					]
