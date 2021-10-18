@@ -1,3 +1,23 @@
+bundle_cache: &bundle_cache
+  bundle_cache:
+    folder: /usr/local/bundle
+    fingerprint_script:
+      - echo $CIRRUS_OS
+      - ruby -v
+      - cat Gemfile
+  install_script:
+    - gem install bundler
+    - bundle update
+
+env:
+  ## To suppress flood of warnings:
+  ## https://github.com/cirruslabs/cirrus-ci-docs/issues/814
+  ## https://github.com/rubygems/rubygems/issues/4466#issuecomment-818688569
+  ## Global for:
+  ## 1. different tasks (rubocop, test, etc.);
+  ## 2. avoiding overriding `env` in specific cases like macOS.
+  TMPDIR: $CIRRUS_WORKING_DIR
+
 remark_task:
   container:
     image: node
@@ -14,4 +34,63 @@ remark_task:
   only_if: ($CIRRUS_BRANCH == 'main') ||
     changesInclude(
       '.cirrus.yaml', '.gitignore', 'package.json', '.remarkrc.yaml', '**.md'
+    )
+
+bundle-audit_task:
+  container:
+    image: ruby
+
+  <<: *bundle_cache
+
+  audit_script: bundle exec bundle-audit check --update
+
+  only_if: ($CIRRUS_BRANCH == 'main') ||
+    changesInclude(
+      '.cirrus.yaml', '.gitignore', 'Gemfile'
+    )
+
+rubocop_task:
+  container:
+    image: ruby
+
+  <<: *bundle_cache
+
+  lint_script: bundle exec rubocop
+
+  always:
+    rubocop_artifacts:
+      path: rubocop.json
+      type: text/json
+      format: rubocop
+
+  only_if: ($CIRRUS_BRANCH == 'main') ||
+    changesInclude(
+      '.cirrus.yaml', '.gitignore', 'Gemfile', '.rubocop.yml', '**.rb', '**.ru'
+    )
+
+rspec_task:
+  depends_on:
+    - remark
+    - bundle-audit
+    - rubocop
+
+  container:
+    image: ruby
+
+  <<: *bundle_cache
+
+  apt_cache:
+    folder: /var/cache/apt/archives
+    reupload_on_changes: true
+
+  preparation_script:
+    - git config --global init.defaultBranch main
+    - apt-get update
+    - apt-get install -y npm
+
+  test_script: bundle exec rspec
+
+  only_if: ($CIRRUS_BRANCH == 'main') ||
+    changesInclude(
+      '.cirrus.yaml', '.gitignore', 'Gemfile', '.rspec', 'spec/**'
     )
