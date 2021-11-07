@@ -66,6 +66,18 @@ RSpec.describe 'Generated gem from template' do
 				it { is_expected.to include_lines expected_lines }
 			end
 
+			describe '.rubocop.yml' do
+				let(:expected_lines) do
+					[
+						'<% `git status --ignored --porcelain`.lines.grep(/^!! /).each do |path| %>',
+						"- <%= path.sub(/^!! /, '') %>",
+						'<% end %>'
+					]
+				end
+
+				it { is_expected.to include_lines expected_lines }
+			end
+
 			describe 'README.md' do
 				let(:expected_lines) do
 					[
