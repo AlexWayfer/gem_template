@@ -6,7 +6,7 @@ bundle_cache: &bundle_cache
       - ruby -v
       - cat Gemfile
   install_script:
-    - gem install bundler
+    - gem update --system --no-document
     - bundle update
 
 env:
