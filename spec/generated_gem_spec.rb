@@ -187,7 +187,7 @@ RSpec.describe 'Generated gem from template' do
 
 		around do |example|
 			## HACK: Don't try to send Codecov reports from generated project
-			original_ci_value = ENV['CI']
+			original_ci_value = ENV.fetch('CI', nil)
 			ENV['CI'] = nil
 			example.run
 			ENV['CI'] = original_ci_value
