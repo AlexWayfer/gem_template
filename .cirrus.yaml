@@ -85,8 +85,10 @@ rspec_task:
 
   preparation_script:
     - git config --global init.defaultBranch main
+    ## https://github.com/nodesource/distributions/blob/master/README.md#installation-instructions
+    - curl -fsSL https://deb.nodesource.com/setup_current.x | bash -
     - apt-get update
-    - apt-get install -y npm
+    - apt-get install -y nodejs
 
   test_script: bundle exec rspec
 
