@@ -145,8 +145,7 @@ RSpec.describe 'Generated gem from template' do
 			system 'bundle outdated'
 		end
 
-		## https://github.com/deivid-rodriguez/pry-byebug/pull/346#issuecomment-817706135
-		pending { is_expected.to be true }
+		it { is_expected.to be true }
 	end
 
 	describe 'Bundler audit' do
