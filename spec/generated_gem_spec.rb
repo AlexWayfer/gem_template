@@ -142,7 +142,10 @@ RSpec.describe 'Generated gem from template' do
 
 	describe 'outdated Ruby gems' do
 		subject do
-			system 'bundle outdated'
+			## https://github.com/rubygems/rubygems/issues/6181#issuecomment-1376438133
+			Bundler.with_unbundled_env do
+				system 'bundle outdated'
+			end
 		end
 
 		it { is_expected.to be true }
