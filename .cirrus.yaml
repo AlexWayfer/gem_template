@@ -57,12 +57,6 @@ rubocop_task:
 
   lint_script: bundle exec rubocop
 
-  always:
-    rubocop_artifacts:
-      path: rubocop.json
-      type: text/json
-      format: rubocop
-
   only_if: ($CIRRUS_BRANCH == 'main') ||
     changesInclude(
       '.cirrus.yaml', '.gitignore', 'Gemfile', '.rubocop.yml', '**.rb', '**.ru'
