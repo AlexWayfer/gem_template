@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 gem 'gem_generator', '~> 0.5.0'
 
-gem 'pry-byebug', '~> 3.9'
+gem 'pry-byebug', '3.11.0'
 
 group :test do
 	gem 'ffaker', '~> 2.20'
