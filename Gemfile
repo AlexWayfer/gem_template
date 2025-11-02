@@ -14,7 +14,7 @@ end
 group :lint do
 	gem 'bundler-audit', '~> 0.9.0'
 
-	gem 'rubocop', '~> 1.78.0'
-	gem 'rubocop-performance', '~> 1.25.0'
-	gem 'rubocop-rspec', '~> 3.6.0'
+	gem 'rubocop', '~> 1.81.0'
+	gem 'rubocop-performance', '~> 1.26.0'
+	gem 'rubocop-rspec', '~> 3.7.0'
 end
