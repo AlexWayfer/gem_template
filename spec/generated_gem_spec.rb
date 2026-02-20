@@ -140,7 +140,7 @@ RSpec.describe 'Generated gem from template' do
 		it { is_expected.to be true }
 	end
 
-	describe 'outdated Ruby gems' do
+	describe 'outdated Ruby gems', pending: 'diff-lcs 1.6.2 => 2.0.0' do
 		subject do
 			## https://github.com/rubygems/rubygems/issues/6181#issuecomment-1376438133
 			Bundler.with_unbundled_env do
