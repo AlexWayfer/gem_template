@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'gem_generator', '~> 0.5.0'
+gem 'gem_generator', '~> 1.0'
 
 gem 'pry-byebug', '~> 3.9'
 
