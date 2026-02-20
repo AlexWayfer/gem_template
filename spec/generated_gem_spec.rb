@@ -28,7 +28,10 @@ RSpec.describe 'Generated gem from template' do
 				"gem_generator #{gem_name} #{__dir__}/../template --namespace=#{namespace}"
 			) do |stdin, _stdout, stderr, wait_thread|
 				Thread.new do
+					## I want to see errors
+					# rubocop:disable RSpec/Output
 					stderr.each { |l| puts l } unless stderr.closed?
+					# rubocop:enable RSpec/Output
 				end
 
 				stdin.puts 'Foo Bar Baz'
